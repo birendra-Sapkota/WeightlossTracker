@@ -1,0 +1,64 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+<body>
+<style>
+    input[type=text], input[type=email], input[type=password]{
+        background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 1px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+      }
+</style>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="{% static 'assets/img/logo.jpg' %}" style="height: 150px;" id="icon" alt="User Icon"/>
+        </div>
+        {% for message in messages%}
+        <h6 style="color:red">* {{message}}</h6>
+        {% endfor %}
+        <!-- Login Form -->
+        <div class="content-form-page">
+            <form action="login" method="post" class="form-horizontal form-without-legend">
+                {% csrf_token %}
+                <input type="text" id="uname" class="fadeIn second" name="user_name" placeholder="UserName">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+                <div class="row">
+                    <div class="col-lg-8 col-md-offset-2 padding-left-0 padding-top-20 " style="margin-left: 60px">
+                        <button class="btn btn-primary" type="submit">login In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+
+{% endblock %}
+    

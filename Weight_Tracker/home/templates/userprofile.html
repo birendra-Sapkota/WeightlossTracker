@@ -1,0 +1,217 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+<style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 4px 10px 6px 30px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .main {
+            margin-left: 160px;
+            /* Same as the width of the sidenav */
+
+            /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+
+<div class="sidenav">
+    <div>
+        <img src="" style="height: 100px; width: 90px; background-color: blanchedalmond; margin-left: 25%;"><br>
+        <label style="margin-left: 18%; margin-top: -10px; color: white;">
+            {% if user.is_authenticated %}
+            <h2> Hello, {{user.first_name }} {{ user.last_name}}</h2>
+            {% endif %}
+        </label>
+        <label style="margin-left: 18%; margin-top: -30px; color: white;">
+            <br> {% now "SHORT_DATETIME_FORMAT" %}
+        </label>
+    </div>
+    <hr style="background-color: white; margin:20px">
+    <a href="userdashboard">Dashboard</a>
+    <a href="userprofile" style="color:white;">View Profile</a>
+    <a href="addcf">Add Consume Food</a>
+    <a href="recommend_plan">Recommended Plan</a>
+    <a href="weekly_rep">Add weekly Progress</a>
+
+    <hr style="background-color: white; margin:20px">
+    <a href="accounts/logout" style="margin-bottom: 30px;"> Log out</a>
+
+</div>
+
+<!-- main body part -->
+
+<div class="main" style="padding-left: 150px;">
+    <h1 style="text-align: center; padding:20px"> {{user.username}}'s Profile</h1>
+
+
+    {% for message in messages%}
+    <div id="message">
+        {% if message.extra_tags == 'updatesus' %}
+        <h2 style="text-align:center; color:green">{{message}}</h2>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+
+            </div>
+            <div class="col-8">
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Username</th>
+                        <th scope="col">{{dataset.username}}</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Name</td>
+                        <td>{{ dataset.firstname}} {{ dataset.lastname }}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Date of Birth</td>
+                        <td>{{dataset.dob}}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Email</td>
+                        <td>{{dataset.email}}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Gender</td>
+                        <td>{{dataset.gender}}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Age</td>
+                        <td>{{dataset.age}} Years</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Height</td>
+                        <td>{{dataset.height}} Ft</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Current Weight</td>
+                        <td>{{dataset.currentweight}} Kg</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Targeted weight</td>
+                        <td>{{dataset.targetedweight}} KG</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>Time Period</td>
+                        <td>{{ dataset.timeperiod }} Days</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="col-1">
+
+            </div>
+        </div>
+    </div>
+    <form action="updateuserprofile" style="margin-left: 300px">
+        {% csrf_token %}
+        <input type="submit" value="Edit profile">
+
+    </form>
+
+</div>
+
+
+<script>
+    $(document).ready(function() {
+
+     setTimeout(function(){
+           document.getElementById("message").innerHTML = '';
+        }, 1900);
+    });
+
+
+
+
+</script>
+</body>
+</html>
+
+
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+<style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 4px 10px 6px 30px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .main {
+            margin-left: 160px;
+            /* Same as the width of the sidenav */
+
+            /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+
+<!--<div class="sidenav">-->
+<!--    <div>-->
+<!--        <img src="" style="height: 100px; width: 90px; background-color: blanchedalmond; margin-left: 25%;"><br>-->
+<!--        <label style="margin-left: 18%; margin-top: -10px; color: white;">-->
+<!--            {% if user.is_authenticated %}-->
+<!--            <h2> Hello, {{user.first_name }} {{ user.last_name}}</h2>-->
+<!--            {% endif %}-->
+<!--        </label>-->
+<!--        <label style="margin-left: 18%; margin-top: -30px; color: white;">-->
+<!--            <br> {% now "SHORT_DATETIME_FORMAT" %}-->
+<!--        </label>-->
+<!--    </div>-->
+<!--    <hr style="background-color: white; margin:20px">-->
+<!--    <a href="userdashboard">Dashboard</a>-->
+<!--    <a href="editprofile" style="color:white;">Edit Profile</a>-->
+<!--    <a href="addcf">Add Consume Food</a>-->
+<!--    <a href="recommend_plan">Recommended Plan</a>-->
+<!--    <a href="weekly_rep">Add weekly Progress</a>-->
+
+<!--    <hr style="background-color: white; margin:20px">-->
+<!--    <a href="accounts/logout" style="margin-bottom: 30px;"> Log out</a>-->
+
+<!--</div>-->
+
+<!-- main body part -->
+<h1 style="text-align: center; padding:20px"> Edit User Profile</h1>
+<div class="main" style="padding-left: 150px;">
+    {% for message in messages%}
+    {% if message.extra_tags == 'clogin' %}
+    <h6 style="color:green">{{message}}</h6>
+    {% endif%}
+    {% endfor %}
+
+
+    <form action="updateuserprofile" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group row">
+
+
+                        <label class="col-sm-4 col-form-label">First Name </label>
+                        <div class="col-sm-8">
+
+                            <input type="text" class="form-control" name="ufname" placeholder="Firnst name" disabled
+                                   value="{{user.first_name}}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Last Name </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="ulastname" placeholder="last name" disabled
+                                   value="{{user.last_name}}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"> Current weight</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="cweight" placeholder="current weight in kg">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"> Current age</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="cage" placeholder="current age">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"> targeted weight</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="tweight"
+                                   placeholder="Targeted weight in kg">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"> Time period</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="timep"
+                                   placeholder="Enter in days to get your targeted weight">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Gender</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">other</option>
+
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-6">
+
+                    <div class="custom-file" style="margin-bottom: 20px;">
+
+                        <!--                        <input type="file" class="custom-file-input" accept="image">-->
+                        {{form.as_p}}
+                        <!--                        <label name="profileimg" class="custom-file-label">Choose profile image</label>-->
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Username </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="username" placeholder="user name" disabled
+                                   value="{{user.username}}">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" name="email"
+                                   placeholder="Update your email address" disabled value="{{user.email}}">
+                        </div>
+                    </div>
+
+                    <!--                    <div class="form-group row">-->
+                    <!--                        <label class="col-sm-4 col-form-label">User Type</label>-->
+                    <!--                        <div class="col-sm-8">-->
+                    <!--                            <select class="form-control" name="usertype">-->
+                    <!--                                <option value="admin">Admin</option>-->
+                    <!--                                <option value="user">User</option>-->
+
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"> Height</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="height"
+                                   placeholder=" your height Eg: 5ft 5inch as 5.5 ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"> Date of Birth</label>
+                        <div class="col-sm-8">
+                            <input type="Date" class="form-control" name="dob"
+                                   placeholder="DOB">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 30px;">
+            <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-4">
+                    <input type="submit" value="update">
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+</body>
+</html>
+
+
+{% endblock %}

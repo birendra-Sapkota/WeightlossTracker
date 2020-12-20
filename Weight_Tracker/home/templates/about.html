@@ -1,0 +1,224 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+<body>
+
+
+<!-- start nav bar  -->
+<nav class="navbar navbar-expand-lg navbar-light shadow-nav fixed-top ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active navbar-brand" style="margin-top: -10px">
+                <a class="nav-link" href="index" style="color:white">Weight Tracker</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="aboutus">About Us</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="contact">Contact</a>
+            </li>
+        </ul>
+
+        {% if user.is_authenticated %}
+        <div>
+            <h2 style="margin-right: 30px; color:#fff">Hello, {{ user.first_name}}</h2>
+        </div>
+
+        {% if user.is_staff == 1 %}
+        <form action="adminhome" class="form-inline my-2 my-lg-0">
+            <button style="margin-right: 20px;" class="btn btn-success btn-lg my-2 my-sm-0" type="submit">Admin
+                panel
+            </button>
+        </form>
+        <form action="userdashboard" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-info btn-lg my-2 my-sm-0" type="submit">User Panel</button>
+        </form>
+        <form action="accounts/logout" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-dark btn-lg my-2 my-sm-0" type="submit" style="margin-left: 20px">Logout</button>
+        </form>
+
+        {% else %}
+        <form action="userdashboard" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-info btn-lg my-2 my-sm-0" type="submit">User Panel</button>
+        </form>
+        <form action="accounts/logout" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-dark btn-lg my-2 my-sm-0" type="submit" style="margin-left: 20px">Logout</button>
+        </form>
+
+        {% endif %}
+        {% else %}
+        <form action="accounts/login" class="form-inline my-2 my-lg-0">
+
+            <button style="margin-right: 20px;" class="btn btn-success btn-lg my-2 my-sm-0" type="submit">Login
+            </button>
+        </form>
+        <form action="accounts/register" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-info btn-lg my-2 my-sm-0" type="submit">Register</button>
+        </form>
+        {% endif %}
+
+
+    </div>
+</nav>
+
+<div class="container" style="padding:60px; height: 600px">
+    <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10" style="background-color: #edf0f5; height:570px; padding:20px">
+            <h1 style="text-align:center"> About us</h1>
+            <hr>
+
+            <h5 style="padding:10px"><p class="text-center">
+                Weight tracker is basically an web based application that allows user to track their current
+                activities that effect the weight.
+            </p></h5>
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-7">
+                    <div style="padding: 20px">
+                        <h3> For our head office, contact</h3>
+                        <i class="fas fa-home mr-3"></i> Baneshwor, KAT, Nepal</p></p>
+
+                        <i class="fas fa-phone mr-3"></i> + 977 9849737829</p>
+
+                        <i class="fas fa-print mr-3"></i> + 977 234 567 89</p>
+
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3 pt-4">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+                <!-- Content -->
+                <h5 class="font-weight-bold text-uppercase mb-4">Feel free to join us.</h5>
+                <p>Register your account now</p>
+                <form action="accounts/register" class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Register</button>
+                </form>
+
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+                <ul class="list-unstyled" style="color:black">
+                    <li>
+                        <p>
+                            <a href="#" style=" text-decoration:none; color:black">Contact</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#" style=" text-decoration:none; color:black">About Us</a>
+                        </p>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                <!-- Contact details -->
+                <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <p>
+                            <i class="fas fa-home mr-3"></i> Baneshwor, KAT, Nepal</p>
+                    </li>
+                    <li>
+                        <p>
+                            <i class="fas fa-envelope mr-3"></i> info@weighttracker.com</p>
+                    </li>
+                    <li>
+                        <p>
+                            <i class="fas fa-phone mr-3"></i> + 977 9849737829</p>
+                    </li>
+                    <li>
+                        <p>
+                            <i class="fas fa-print mr-3"></i> + 977 234 567 89</p>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+                <!-- Social buttons -->
+                <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+
+                <!-- Facebook -->
+
+                <!-- Twitter -->
+                <a type="button" class="btn-floating btn-tw">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <!-- Google +-->
+                <a type="button" class="btn-floating btn-gplus">
+                    <i class="fab fa-google-plus-g"></i>
+                </a>
+
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="" style=" text-decoration:none; color:green"> weighttracker.com</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+
+<style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #2a035e;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 4px 10px 6px 30px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .main {
+            margin-left: 300px;
+            /* Same as the width of the sidenav */
+            font-size: 28px;
+            /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+
+</style>
+</head>
+
+<body>
+
+<div class="sidenav">
+    <div>
+
+        <label style="margin-left: 18%; margin-top: -10px; color: white;">
+            {% if user.is_authenticated %}
+            <h2> Hello, {{user.first_name }} {{ user.last_name}}</h2>
+
+            {% endif %}
+        </label>
+        <label style="margin-left: 18%; margin-top: -30px; color: white;">
+            <br> {% now "SHORT_DATETIME_FORMAT" %}
+        </label>
+    </div>
+    <hr style="background-color: white; margin:20px">
+    <a href="admuserdashboard" style="color:white;">Dashboard</a>
+    <a href="admverifyuser">Verify User</a>
+    <a href="addfood">Add Food detail</a>
+    <a href="viewalluser">Activity: view userlist</a>
+    <a href="viewallfood">View All Foods</a>
+
+
+
+
+    <hr style="background-color: white; margin:20px">
+    <a href="accounts/logout" style="margin-bottom: 30px;"> Log out</a>
+
+</div>
+<div class="main">
+    <h1 style="text-align: center">Admin Panel</h1>
+
+</div>
+
+</body>
+</html>
+{% endblock %}

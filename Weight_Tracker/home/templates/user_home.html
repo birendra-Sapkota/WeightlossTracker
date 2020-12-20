@@ -1,0 +1,170 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+
+<style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 4px 10px 6px 30px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .main {
+            padding-top:20px;
+            margin-left: 350px;
+            /* Same as the width of the sidenav */
+            font-size: 15px;
+            /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+
+<div class="sidenav">
+    <div>
+        <img src="{{person}}" style="height: 100px; width: 90px; background-color: blanchedalmond; margin-left: 25%;"><br>
+        <label style="margin-left: 18%; margin-top: -10px; color: white;">
+            {% if user.is_authenticated %}
+            <h2> Hello, {{user.first_name }} {{ user.last_name}}</h2>
+
+            {% endif %}
+            <br>
+        </label>
+        <label style="margin-left: 18%; margin-top: -30px; color: white;">
+            <br> {% now "SHORT_DATETIME_FORMAT" %}
+        </label>
+    </div>
+    <hr style="background-color: white; margin:20px">
+    <a href="userdashboard" style="color:white;">Dashboard</a>
+    <a href="userprofile">View Profile</a>
+    <a href="addcf">Add Consume Food</a>
+    <a href="recommend_plan">Recommended Plan</a>
+    <a href="weekly_rep">Add weekly Progress</a>
+
+    <hr style="background-color: white; margin:20px">
+    <a href="accounts/logout" style="margin-bottom: 30px;"> Log out</a>
+
+</div>
+<div class="main">
+
+
+    {% for message in messages%}
+
+    <div id="message">
+        {% if message.extra_tags == 'login' %}
+        <h2 style="text-align:center; color:green">{{message}}</h2>
+
+        {% endif %}
+    </div>
+
+    {% endfor %}
+
+
+    <!--    calculate Bmi section   -->
+    <h3 style="text-align: center"> Calculate your BMI</h3>
+    <form action="userdashboard" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Calculate">
+    </form>
+
+    {% for message in messages%}
+    {% if message.extra_tags == 'bmi' %}
+    <h6 style="color:green">{{message}}</h6>
+    {% endif %}
+    {% endfor %}
+
+
+    <div class="bmi">
+        <!--for under weight -->
+        {% for message in messages%}
+        {% if message.extra_tags == 'underweight' %}
+        Eat more 700-1000 calories than you take. For example if you take 1400 calories a day than you should take 2100-2400 calories a day.
+        {% endif %}
+
+        {% if message.extra_tags == 'normal' %}
+        You need to intake  2,000 calories if women and 2,500 calories if men in order to mantain your bmi
+        {% endif %}
+
+         {% if message.extra_tags == 'overweight' %}
+        Take less calories.
+        {% endif %}
+
+          {% if message.extra_tags == 'obese' %}
+        You need to take exercise and do some work out.
+        {% endif %}
+
+
+          {% if message.extra_tags == 'exobese' %}
+        what ca i say, you fucking need to get out of your bed right now and do some work out, cut you heavy calories intaking habits.
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+
+     setTimeout(function(){
+           document.getElementById("message").innerHTML = '';
+        }, 4000);
+    });
+
+</script>
+</body>
+
+{% endblock %}
+
+
+
+
+
+
